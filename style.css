@@ -1,0 +1,64 @@
+html::before {
+  content: 'CodePen ♥ The Web';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  font-family: monospace;
+  opacity: 0.6;
+  background: rebeccapurple;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+:root {
+    --simple-blue: #007bff; /* Bleu Simple classique */
+    --pure-white: #ffffff;
+    --black: #000000;
+    --light-bg: #f8f9fa;
+}
+
+body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--pure-white); color: #333; }
+
+/* Header & Logo */
+.header { background: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+.logo-stylise { font-size: 1.6rem; font-weight: 900; }
+.noir { color: var(--black); }
+.bleu { color: var(--simple-blue); }
+.menu-icon { font-size: 1.8rem; cursor: pointer; color: var(--simple-blue); }
+
+/* Sidebar */
+.sidebar { height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; left: 0; background-color: #1a1a1a; overflow-x: hidden; transition: 0.4s; padding-top: 60px; }
+.sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.1rem; color: #ccc; display: block; }
+.sidebar-header { color: white; font-weight: bold; padding: 0 25px 20px; border-bottom: 1px solid #333; }
+.sidebar .closebtn { position: absolute; top: 10px; right: 25px; font-size: 2rem; }
+
+/* Dashboard UI */
+.container { padding: 20px; max-width: 480px; margin: auto; }
+.balance-box { 
+    background: var(--simple-blue); /* Solde sur bleu simple */
+    color: white; text-align: center; padding: 35px; border-radius: 18px; margin-bottom: 20px; 
+}
+.balance-box h1 { margin: 10px 0 0; font-size: 2.4rem; font-weight: 800; }
+.card { background: var(--light-bg); padding: 20px; border-radius: 12px; border: 1px solid #eee; margin-bottom: 15px; }
+.card h3 { margin-top: 0; color: var(--simple-blue); }
+
+/* Buttons & Inputs */
+.auth-input { width: 100% !important; padding: 13px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+.btn-main { background: var(--simple-blue); color: white; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+.btn-recharger { background: #28a745; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; margin-bottom: 10px; cursor: pointer; }
+.btn-whatsapp { background: #25D366; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.btn-verif { background: var(--simple-blue); color: white; border: none; padding: 0 15px; border-radius: 8px; cursor: pointer; }
+
+.input-group { display: flex; gap: 8px; margin-top: 10px; }
+.input-group input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+
+/* Loader */
+.loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60vh; }
+.loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--simple-blue); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.task-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
+.gain { color: var(--simple-blue); font-weight: bold; }
+.iti { width: 100%; }
