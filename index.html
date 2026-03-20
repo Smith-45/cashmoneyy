@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA$HMONEY | Officiel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="sidebar-header">MENU CA$HMONEY</div>
+        
+        <a href="admin.html" id="adminLink" style="display:none; background: #FFD700; color: #000; font-weight: bold; margin: 10px; border-radius: 8px; text-align: center;">🛠 PANEL ADMIN</a>
+        
+        <a href="#" onclick="showSection('dashboard')">🏠 Tableau de bord</a>
+        <a href="#" onclick="showSection('referral-section')">🚀 Mon Équipe</a>
+        <a href="#" onclick="showSection('historique')">📜 Mon Historique</a>
+        <hr style="border: 0.5px solid rgba(255,255,255,0.1); margin: 20px;">
+        <a href="#" onclick="location.reload()" style="color: #ff4d4d;">🚪 Déconnexion</a>
+    </div>
+
+    <header class="header">
+        <div class="logo-stylise" onclick="location.reload()">
+            <span class="noir">C</span><span class="noir">A</span><span class="bleu">$</span><span class="noir">H</span><span class="bleu">MONEY</span>
+        </div>
+        <span id="burgerBtn" class="menu-icon" onclick="openNav()" style="display:none;">&#9776;</span>
+    </header>
+
+    <main class="container">
+        <section id="authSection" class="card">
+            <h2 id="authTitle" style="text-align:center; margin-bottom:20px;">Connexion</h2>
+            
+            <div id="authFields">
+                <input type="email" id="authEmail" placeholder="Email" class="auth-input">
+                
+                <div id="registerOnlyFields" style="display: none;">
+                    <input type="text" id="authUsername" placeholder="Nom d'utilisateur (ex: Gedeon)" class="auth-input">
+                    <input type="tel" id="authPhone" placeholder="Numéro Mobile Money" class="auth-input">
+                    <input type="text" id="authReferrer" placeholder="Parrainé par..." class="auth-input" readonly>
+                </div>
+
+                <input type="password" id="authPassword" placeholder="Mot de passe" class="auth-input">
+                <button onclick="gererAuthentification()" class="btn-main" id="btnAuthAction">Se connecter</button>
+            </div>
+
+            <p style="text-align:center; margin-top:15px; font-size:0.9rem;">
+                <span id="toggleText">Pas encore de compte ?</span> 
+                <a href="javascript:void(0)" onclick="toggleAuthMode()" id="toggleLink" style="color: #007bff; font-weight:bold; text-decoration:none;">S'inscrire</a>
+            </p>
+        </section>
+
+        <div id="mainDashboard" style="display:none;">
+            <section id="dashboard" class="balance-card">
+                <div class="level-badge" id="userLevelBadge">Niveau 1</div>
+                <div class="balance-info">
+                    <p>Mon Solde</p>
+                    <h1 id="userBalance">0 FCFA</h1>
+                </div>
+                <div style="display:flex; gap:10px; margin-top:20px;">
+                    <button id="btnRechargeMain" class="btn-action deposit">📥 Recharger</button>
+                    <button onclick="ouvrirModalRetrait()" class="btn-action withdraw">📤 Retrait</button>
+                </div>
+            </section>
+
+            <section class="card" id="referral-section" style="display:none;">
+                <h3>🚀 Mon Lien de Parrainage</h3>
+                <input type="text" id="referralLink" readonly class="auth-input" style="background:#f9f9f9; color:#007bff; font-weight:bold;">
+                <button onclick="copierLien()" class="btn-main">Copier mon lien</button>
+                
+                <div class="stats-mini" style="margin-top:20px; display:flex; justify-content:space-between;">
+                    <span>Filleuls Actifs: <strong id="referralCount">0</strong></span>
+                    <span>Objectif: <strong id="nextLevelReq">5</strong></span>
+                </div>
+                <div class="progress-container"><div id="levelProgress" class="progress-bar"></div></div>
+            </section>
+
+            <section class="card" id="historique" style="display:none;">
+                <h3>📜 Historique (Trié)</h3>
+                <div id="userHistoryList"></div>
+            </section>
+
+            <section class="card">
+                <h3>💰 Signaler une Recharge</h3>
+                <input type="text" id="paylivID" placeholder="ID Transaction Payliv" class="auth-input">
+                <button onclick="alert('Signalement envoyé à Gédéon pour vérification !')" class="btn-main">Vérifier mon paiement</button>
+            </section>
+        </div>
+    </main>
+
+    <div id="modalRetrait" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Demander un Retrait</h3>
+            <p style="font-size:0.8rem; color:gray;">Le montant sera envoyé sur votre numéro Mobile Money.</p>
+            <input type="number" id="retraitMontant" placeholder="Montant à retirer" class="auth-input">
+            <button onclick="envoyerDemandeRetrait()" class="btn-main">Confirmer</button>
+            <button onclick="fermerModalRetrait()" class="btn-main" style="background:#ccc; color:#333;">Fermer</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
