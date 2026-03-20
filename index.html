@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA$HMONEY | Officiel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="sidebar-header">MENU CA$HMONEY</div>
+        
+        <a href="admin.html" id="adminLink" style="display:none; background: gold; color: black; font-weight: bold;">🛠 PANEL ADMIN</a>
+        
+        <a href="#" onclick="showSection('dashboard')">🏠 Tableau de bord</a>
+        <a href="#" onclick="showSection('notificationArea')">🔔 Notifications</a>
+        <a href="#" onclick="showSection('retrait-section')">💳 Retrait & Recharge</a>
+        <a href="#" onclick="showSection('historique')">📜 Mon Historique</a>
+        <a href="#" onclick="showSection('cgu')">⚖️ Conditions (CGU)</a>
+        <hr style="border: 0.5px solid rgba(255,255,255,0.1); margin: 20px;">
+        <a href="#" onclick="window.deconnexion()" style="color: #ff4d4d;">🚪 Déconnexion</a>
+    </div>
+
+    <header class="header">
+        <div class="logo-stylise" onclick="showSection('dashboard')">
+            <span class="noir">C</span><span class="noir">A</span><span class="bleu">$</span><span class="noir">H</span><span class="bleu">MONEY</span>
+        </div>
+        <span id="burgerBtn" class="menu-icon" onclick="openNav()" style="display:none;">&#9776;</span>
+    </header>
+
+    <main class="container">
+        <div id="loadingScreen" class="loader-container">
+            <div class="loader"></div>
+            <p>Vérification...</p>
+        </div>
+
+        <div id="authSection" style="display:none;">
+            <div class="card auth-card">
+                <h2 id="authTitle" style="color:var(--simple-blue); text-align:center;">Créer un compte</h2>
+                <div id="registerFields">
+                    <input type="text" id="regNom" placeholder="Nom complet" class="auth-input">
+                    <div style="margin-bottom: 15px; width: 100%;">
+                        <input type="tel" id="regTel" class="auth-input">
+                    </div>
+                </div>
+                <input type="email" id="authEmail" placeholder="Email" class="auth-input">
+                <input type="password" id="authPassword" placeholder="Mot de passe" class="auth-input">
+                <button id="btnAuthAction" onclick="window.gererAuth()" class="btn-main">S'inscrire</button>
+                <p style="text-align:center; font-size: 0.9rem; margin-top: 15px;">
+                    <span id="toggleText">Déjà un compte ?</span> 
+                    <a href="#" onclick="window.toggleAuthMode()" id="toggleLink" style="color:var(--simple-blue); font-weight:bold;">Se connecter</a>
+                </p>
+            </div>
+        </div>
+
+        <div id="mainDashboard" style="display:none;">
+            <div id="notificationArea"></div>
+
+            <section id="dashboard" class="balance-card">
+                <div class="balance-info">
+                    <p>Mon Solde Actuel</p>
+                    <h1 id="userBalance">0 FCFA</h1>
+                </div>
+                <div class="action-buttons">
+                    <button onclick="window.location.href='https://payliv.shop/pay/plv_d0kjvsgn'" class="btn-action deposit">📥 Recharger</button>
+                    <button onclick="window.ouvrirModalRetrait()" class="btn-action withdraw">📤 Retrait</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h3>🤝 Parrainage (1100 FCFA)</h3>
+                <button onclick="window.partagerWhatsApp()" class="btn-whatsapp">Partager mon lien</button>
+            </section>
+
+            <section class="card">
+                <h3>Missions TikTok (@1privateside)</h3>
+                <div class="task-item" onclick="window.missionTikTok()">
+                    <span>🚀 S'abonner + Like</span>
+                    <b class="gain">+50 F</b>
+                </div>
+            </section>
+
+            <section class="card" id="retrait-section">
+                <h3>💰 Signalement Recharge</h3>
+                <div class="input-group">
+                    <input type="text" id="paylivID" placeholder="ID Transaction Payliv">
+                    <button onclick="window.signalerPaiement()" class="btn-verif">Vérifier</button>
+                </div>
+            </section>
+
+            <section class="card" id="historique">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h3 style="margin:0;">📜 Mon Historique</h3>
+                    <span id="countTransac" style="font-size: 0.8rem; background: #eee; padding: 2px 8px; border-radius: 10px;">0</span>
+                </div>
+                <div id="userHistoryList" class="history-container"></div>
+            </section>
+
+            <section class="card" id="cgu">
+                <h3>⚖️ Conditions d'Utilisation</h3>
+                <p style="font-size:0.8rem; color:#666;">Le multi-compte est interdit. Retrait minimum 2000 FCFA. Tout comportement frauduleux entraîne un bannissement définitif.</p>
+            </section>
+        </div>
+    </main>
+
+    <div id="modalRetrait" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="window.fermerModalRetrait()">&times;</span>
+            <h3>Demander un retrait</h3>
+            <div class="input-group-vertical">
+                <label>Montant (Min: 2000 F)</label>
+                <input type="number" id="retraitMontant" placeholder="Ex: 5000" class="auth-input">
+                <label>Confirmer Numéro</label>
+                <input type="tel" id="retraitTel" class="auth-input">
+            </div>
+            <button onclick="window.soumettreRetrait()" class="btn-main">Confirmer</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA$HMONEY | Administration</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-body { background: #f0f2f5; padding: 20px; font-family: sans-serif; }
+        .admin-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2 { color: #333; border-bottom: 2px solid var(--simple-blue); padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; border: 1px solid #eee; text-align: left; font-size: 0.85rem; }
+        th { background: #f8f9fa; color: #555; }
+        .btn-group { display: flex; gap: 5px; }
+        .btn-adm { border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.75rem; }
+        .btn-v { background: #28a745; color: white; } /* Valider */
+        .btn-r { background: #dc3545; color: white; } /* Rejeter */
+        .btn-b { background: #000; color: white; }    /* Bannir */
+        .status-badge { padding: 4px 8px; border-radius: 20px; font-size: 0.7rem; background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body class="admin-body">
+
+    <div style="max-width: 1000px; margin: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>🛠 Panel Admin Gedeon</h1>
+            <button onclick="window.location.href='index.html'" class="btn-main" style="width: auto; padding: 10px 20px;">Retour Site</button>
+        </div>
+
+        <div class="admin-card">
+            <h2>📥 Recharges en attente (Payliv)</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>UID Utilisateur</th>
+                            <th>ID Transaction</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listRecharges"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <h2>📤 Demandes de Retrait</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Numéro</th>
+                            <th>Montant</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listRetraits"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, doc, getDoc, updateDoc, deleteDoc, increment, addDoc, serverTimestamp, query, where } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBCExSHkawIHfsmAvyU_3cAQa2JDfaNMeM",
+            authDomain: "cashmoney-94740.firebaseapp.com",
+            projectId: "cashmoney-94740",
+            storageBucket: "cashmoney-94740.firebasestorage.app",
+            messagingSenderId: "545930031325",
+            appId: "1:545930031325:web:4915222ad0db491081ab34"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // --- SECURITÉ : Vérifier si c'est bien Gedeon ---
+        onAuthStateChanged(auth, (user) => {
+            if (!user || user.email !== "gedeon.yah45@gmail.com") {
+                alert("Accès interdit !");
+                window.location.href = "index.html";
+            }
+        });
+
+        // --- CHARGER LES RECHARGES ---
+        onSnapshot(collection(db, "recharges"), (snap) => {
+            const tbody = document.getElementById('listRecharges');
+            tbody.innerHTML = "";
+            snap.forEach(d => {
+                const data = d.data();
+                if(data.statut === "En attente") {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${data.userId.substring(0,8)}...</td>
+                            <td><b>${data.transactionID}</b></td>
+                            <td class="btn-group">
+                                <button class="btn-adm btn-v" onclick="validerRecharge('${d.id}', '${data.userId}')">Valider 1000F</button>
+                                <button class="btn-adm btn-r" onclick="supprimerDoc('recharges', '${d.id}')">X</button>
+                                <button class="btn-adm btn-b" onclick="bannirUser('${data.userId}')">🚫</button>
+                            </td>
+                        </tr>`;
+                }
+            });
+        });
+
+        // --- CHARGER LES RETRAITS ---
+        onSnapshot(collection(db, "retraits"), (snap) => {
+            const tbody = document.getElementById('listRetraits');
+            tbody.innerHTML = "";
+            snap.forEach(d => {
+                const data = d.data();
+                if(data.statut === "En attente") {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${data.telephone}</td>
+                            <td><b>${data.montant} F</b></td>
+                            <td class="btn-group">
+                                <button class="btn-adm btn-v" onclick="validerRetrait('${d.id}', '${data.userId}', ${data.montant})">Marquer Payé</button>
+                                <button class="btn-adm btn-r" onclick="supprimerDoc('retraits', '${d.id}')">X</button>
+                                <button class="btn-adm btn-b" onclick="bannirUser('${data.userId}')">🚫</button>
+                            </td>
+                        </tr>`;
+                }
+            });
+        });
+
+        // --- FONCTIONS ACTIONS ---
+
+        window.validerRecharge = async (id, uid) => {
+            if(confirm("Créditer 1000F à cet utilisateur ?")) {
+                await updateDoc(doc(db, "users", uid), { solde: increment(1000) });
+                await addDoc(collection(db, "notifications"), { userId: uid, message: "Recharge de 1000F validée ! ✅", type: "success", date: serverTimestamp() });
+                await addDoc(collection(db, "archives_transactions"), { userId: uid, montant: 1000, type: "recharge", date: serverTimestamp() });
+                await deleteDoc(doc(db, "recharges", id));
+                alert("Recharge validée !");
+            }
+        };
+
+        window.validerRetrait = async (id, uid, montant) => {
+            if(confirm("Confirmez-vous avoir envoyé l'argent ?")) {
+                await addDoc(collection(db, "notifications"), { userId: uid, message: `Votre retrait de ${montant}F a été payé ! 💸`, type: "success", date: serverTimestamp() });
+                await addDoc(collection(db, "archives_transactions"), { userId: uid, montant: montant, type: "retrait", date: serverTimestamp() });
+                await deleteDoc(doc(db, "retraits", id));
+                alert("Retrait archivé comme payé !");
+            }
+        };
+
+        window.bannirUser = async (uid) => {
+            if(confirm("🚫 BANNIRE définitivement cet utilisateur ?")) {
+                await updateDoc(doc(db, "users", uid), { statut: "banni" });
+                alert("Utilisateur banni !");
+            }
+        };
+
+        window.supprimerDoc = async (coll, id) => {
+            if(confirm("Supprimer cette demande ?")) await deleteDoc(doc(db, coll, id));
+        };
+
+    </script>
+</body>
+</html>
