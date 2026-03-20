@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA$HMONEY | Officiel Afrique</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="sidebar-header">MENU CA$HMONEY</div>
+        <a href="admin.html" id="adminLink" style="display:none; background: #FFD700; color: #000; font-weight: 800; margin: 10px; border-radius: 8px; text-align: center; padding: 12px;">🛠 PANEL ADMIN</a>
+        <a href="#" onclick="showSection('dashboard')">🏠 Tableau de bord</a>
+        <a href="#" onclick="showSection('tableau-gains')">📊 Grille des Gains</a>
+        <a href="#" onclick="showSection('regles')">⚖️ Conditions</a>
+        <hr style="border: 0.5px solid rgba(255,255,255,0.1); margin: 20px;">
+        <a href="#" onclick="location.reload()" style="color: #ff4d4d;">🚪 Déconnexion</a>
+    </div>
+
+    <header class="header">
+        <div class="logo-stylise" onclick="location.reload()">
+            <span class="noir">C</span><span class="noir">A</span><span class="bleu">$</span><span class="noir">H</span><span class="bleu">MONEY</span>
+        </div>
+        <span id="burgerBtn" class="menu-icon" onclick="openNav()" style="display:none;">&#9776;</span>
+    </header>
+
+    <main class="container">
+        <section id="authSection" class="card">
+            <h2 id="authTitle" style="text-align:center;">Connexion</h2>
+            <div id="authFields">
+                <input type="email" id="authEmail" placeholder="Email" class="auth-input">
+                <div id="registerOnlyFields" style="display: none;">
+                    <input type="text" id="authUsername" placeholder="Nom d'utilisateur" class="auth-input">
+                    
+                    <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+                        <select id="authCountry" class="auth-input" style="flex: 1.2; font-size: 0.75rem;">
+                            <optgroup label="Afrique de l'Ouest">
+                                <option value="+228">🇹🇬 Togo (+228)</option>
+                                <option value="+225">🇨🇮 Côte d'Ivoire (+225)</option>
+                                <option value="+221">🇸🇳 Sénégal (+221)</option>
+                                <option value="+229">🇧🇯 Bénin (+229)</option>
+                                <option value="+226">🇧🇫 Burkina (+226)</option>
+                                <option value="+223">🇲🇱 Mali (+223)</option>
+                            </optgroup>iiî
+                            <optgroup label="Afrique Centrale">
+                                <option value="+237">🇨🇲 Cameroun (+237)</option>
+                                <option value="+241">🇬🇦 Gabon (+241)</option>
+                                <option value="+243">🇨🇩 RD Congo (+243)</option>
+                            </optgroup>
+                            <optgroup label="Autres">
+                                <option value="+212">🇲🇦 Maroc (+212)</option>
+                                <option value="+222">🇲🇷 Mauritanie (+222)</option>
+                            </optgroup>
+                        </select>
+                        <input type="tel" id="authPhone" placeholder="Numéro" class="auth-input" style="flex: 1.8;">
+                    </div>
+                </div>
+                <input type="password" id="authPassword" placeholder="Mot de passe" class="auth-input">
+                <button onclick="gererAuthentification()" class="btn-main" id="btnAuthAction">Se connecter</button>
+            </div>
+            <p style="text-align:center; margin-top:15px; font-size:0.85rem;">
+                <span id="toggleText">Pas de compte ?</span> <a href="javascript:void(0)" onclick="toggleAuthMode()" id="toggleLink" style="color:#007bff; font-weight:bold;">S'inscrire</a>
+            </p>
+        </section>
+
+        <div id="mainDashboard" style="display:none;">
+            <section id="dashboard" class="balance-card">
+                <div class="level-badge" id="userLevelBadge">Niveau 1</div>
+                <div class="balance-info">
+                    <p>Mon Solde</p>
+                    <h1 id="userBalance">0 FCFA</h1>
+                </div>
+                <div style="display:flex; gap:10px; margin-top:20px;">
+                    <button id="btnRechargeMain" class="btn-action deposit">📥 Recharger</button>
+                    <button onclick="ouvrirModalRetrait()" class="btn-action withdraw">📤 Retrait</button>
+                </div>
+            </section>
+
+            <section class="card" id="daily-tasks" style="margin-top:20px;">
+                <h3 style="margin-top:0;">✍️ Missions du Jour (+300 F)</h3>
+                <div id="task1" class="task-item">
+                    <p class="task-phrase" id="task1_text">"Chargement des missions..."</p>
+                    <input type="text" id="ans1" placeholder="Corrige la phrase..." class="auth-input">
+                    <button onclick="verifierTache(1)" class="btn-main" style="padding:10px;">Valider (+100 F)</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="modalRetrait" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <h3 style="margin-top:0;">📤 Effectuer un Retrait</h3>
+            <input type="number" id="retraitMontant" placeholder="Montant (Min: 2000)" class="auth-input">
+            
+            <label style="font-size: 0.75rem; font-weight: bold; margin-top: 10px; display: block;">Numéro avec indicatif :</label>
+            <input type="tel" id="retraitPhoneFull" placeholder="Ex: +22890..." class="auth-input" oninput="verifierFormatNumero()">
+            <p id="errorFormatPhone" style="display:none; color: #dc3545; font-size: 0.7rem; font-weight: bold;">⚠️ Format : + (indicatif) (numéro)</p>
+
+            <button onclick="envoyerDemandeRetrait()" class="btn-main" style="margin-top:15px;">🔒 Confirmer le retrait</button>
+            <button onclick="fermerModalRetrait()" class="btn-main" style="background:#eee; color:#333; margin-top:5px;">Annuler</button>
+        </div>
+    </div>
+
+    <div id="modalLevelUp" class="modal-overlay" style="display:none; z-index:9999;">
+        <div class="modal-content" style="text-align:center; border: 3px solid #FFD700;">
+            <div style="font-size: 4rem;">🏆</div>
+            <h2 style="color:#d4af37;">NIVEAU SUPÉRIEUR !</h2>
+            <p>Vous passez au <strong id="newLevelName">Niveau X</strong></p>
+            <button onclick="fermerModalLevel()" class="btn-main" style="background:#FFD700; color:#000;">C'EST PARTI !</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+  </html>
