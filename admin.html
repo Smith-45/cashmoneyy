@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN | CA$HMONEY</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: white; padding: 15px; border-radius: 8px; border-left: 5px solid #333; }
+        .table-admin { width: 100%; border-collapse: collapse; background: white; }
+        .table-admin th, td { padding: 10px; border: 1px solid #eee; text-align: left; font-size: 0.9rem; }
+        .btn-approve { background: #28a745; color: white; border: none; padding: 5px; cursor: pointer; }
+        .btn-reject { background: #dc3545; color: white; border: none; padding: 5px; cursor: pointer; }
+    </style>
+</head>
+<body style="background:#f4f4f4; padding: 20px;">
+    <h2>🛠 Panel Administration</h2>
+
+    <div class="stats-grid">
+        <div class="stat-card" style="border-left-color: #007bff;"><span>Utilisateurs</span><h2 id="statTotalUsers">0</h2></div>
+        <div class="stat-card" style="border-left-color: #28a745;"><span>Total Rechargé</span><h2 id="statTotalDeposits">0 FCFA</h2></div>
+        <div class="stat-card" style="border-left-color: #ffc107;"><span>Retraits Attente</span><h2 id="statPendingWithdrawals">0</h2></div>
+    </div>
+
+    <div class="card">
+        <h3>Demandes de Recharge (Validation Manuelle)</h3>
+        <table class="table-admin">
+            <thead>
+                <tr>
+                    <th>Date & Heure</th>
+                    <th>Utilisateur</th>
+                    <th>Niveau Visé</th>
+                    <th>ID Payliv</th>
+                    <th>Montant à Créditer</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="adminRequestList"></tbody>
+        </table>
+    </div>
+    <script type="module" src="admin.js"></script>
+</body>
+</html>
