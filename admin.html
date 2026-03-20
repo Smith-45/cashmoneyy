@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN | CA$HMONEY</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background:#f4f7f6; padding: 20px;">
+    <h2>🛠 Gestion Gédéon - CA$HMONEY</h2>
+
+    <div style="margin-bottom: 20px;">
+        <button onclick="exporterHistoriqueCSV()" class="btn-main" style="background:#28a745; width:auto; padding:12px 25px;">📊 Exporter Bilan Excel</button>
+    </div>
+
+    <div class="card">
+        <h3>📥 Recharges à Valider</h3>
+        <table style="width:100%; border-collapse:collapse;">
+            <thead><tr style="text-align:left; background:#eef2f7;"><th>Date</th><th>Utilisateur</th><th>Montant</th><th>Action</th></tr></thead>
+            <tbody id="rechargeList">
+                <tr><td>20/03 14:00</td><td>Moussa (+225)</td><td>5 000 F</td><td><button class="btn-action deposit">✅</button></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card" style="margin-top:20px; border-top: 4px solid #dc3545;">
+        <h3>📤 Retraits en Attente</h3>
+        <table style="width:100%; border-collapse:collapse;">
+            <thead><tr style="text-align:left; background:#fff0f0;"><th>Date</th><th>Nom</th><th>Numéro MM</th><th>Montant</th><th>Action</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td>20/03 15:30</td>
+                    <td>Koffi</td>
+                    <td style="color:#007bff; font-weight:bold;">+228 90123456</td>
+                    <td style="color:#d9534f; font-weight:bold;">15 000 F</td>
+                    <td><button onclick="validerRetraitAdmin('REF123', '+228 90123456', 15000)" class="btn-action" style="background:#28a745; color:white;">✅ Payé</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+          </html>
