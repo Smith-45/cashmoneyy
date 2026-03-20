@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pen</title>
+  </head>
+  <body>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA$HMONEY | Officiel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="sidebar-header">MENU CA$HMONEY</div>
+        
+        <a href="admin.html" id="adminLink" style="display:none; background: gold; color: black; font-weight: bold;">🛠 PANEL ADMIN</a>
+        
+        <a href="#" onclick="showSection('dashboard')">🏠 Tableau de bord</a>
+        <a href="#" onclick="showSection('notificationArea')">🔔 Notifications</a>
+        <a href="#" onclick="showSection('retrait-section')">💳 Retrait & Recharge</a>
+        <a href="#" onclick="showSection('historique')">📜 Mon Historique</a>
+        <a href="#" onclick="showSection('cgu')">⚖️ Conditions (CGU)</a>
+        <hr style="border: 0.5px solid rgba(255,255,255,0.1); margin: 20px;">
+        <a href="#" onclick="window.deconnexion()" style="color: #ff4d4d;">🚪 Déconnexion</a>
+    </div>
+
+    <header class="header">
+        <div class="logo-stylise" onclick="showSection('dashboard')">
+            <span class="noir">C</span><span class="noir">A</span><span class="bleu">$</span><span class="noir">H</span><span class="bleu">MONEY</span>
+        </div>
+        <span id="burgerBtn" class="menu-icon" onclick="openNav()" style="display:none;">&#9776;</span>
+    </header>
+
+    <main class="container">
+        <div id="loadingScreen" class="loader-container">
+            <div class="loader"></div>
+            <p>Vérification...</p>
+        </div>
+
+        <div id="authSection" style="display:none;">
+            <div class="card auth-card">
+                <h2 id="authTitle" style="color:var(--simple-blue); text-align:center;">Créer un compte</h2>
+                <div id="registerFields">
+                    <input type="text" id="regNom" placeholder="Nom complet" class="auth-input">
+                    <div style="margin-bottom: 15px; width: 100%;">
+                        <input type="tel" id="regTel" class="auth-input">
+                    </div>
+                </div>
+                <input type="email" id="authEmail" placeholder="Email" class="auth-input">
+                <input type="password" id="authPassword" placeholder="Mot de passe" class="auth-input">
+                <button id="btnAuthAction" onclick="window.gererAuth()" class="btn-main">S'inscrire</button>
+                <p style="text-align:center; font-size: 0.9rem; margin-top: 15px;">
+                    <span id="toggleText">Déjà un compte ?</span> 
+                    <a href="#" onclick="window.toggleAuthMode()" id="toggleLink" style="color:var(--simple-blue); font-weight:bold;">Se connecter</a>
+                </p>
+            </div>
+        </div>
+
+        <div id="mainDashboard" style="display:none;">
+            <div id="notificationArea"></div>
+
+            <section id="dashboard" class="balance-card">
+                <div class="balance-info">
+                    <p>Mon Solde Actuel</p>
+                    <h1 id="userBalance">0 FCFA</h1>
+                </div>
+                <div class="action-buttons">
+                    <button onclick="window.location.href='https://payliv.shop/pay/plv_d0kjvsgn'" class="btn-action deposit">📥 Recharger</button>
+                    <button onclick="window.ouvrirModalRetrait()" class="btn-action withdraw">📤 Retrait</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h3>🤝 Parrainage (1100 FCFA)</h3>
+                <button onclick="window.partagerWhatsApp()" class="btn-whatsapp">Partager mon lien</button>
+            </section>
+
+            <section class="card">
+                <h3>Missions TikTok (@1privateside)</h3>
+                <div class="task-item" onclick="window.missionTikTok()">
+                    <span>🚀 S'abonner + Like</span>
+                    <b class="gain">+50 F</b>
+                </div>
+            </section>
+
+            <section class="card" id="retrait-section">
+                <h3>💰 Signalement Recharge</h3>
+                <div class="input-group">
+                    <input type="text" id="paylivID" placeholder="ID Transaction Payliv">
+                    <button onclick="window.signalerPaiement()" class="btn-verif">Vérifier</button>
+                </div>
+            </section>
+
+            <section class="card" id="historique">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h3 style="margin:0;">📜 Mon Historique</h3>
+                    <span id="countTransac" style="font-size: 0.8rem; background: #eee; padding: 2px 8px; border-radius: 10px;">0</span>
+                </div>
+                <div id="userHistoryList" class="history-container"></div>
+            </section>
+
+            <section class="card" id="cgu">
+                <h3>⚖️ Conditions d'Utilisation</h3>
+                <p style="font-size:0.8rem; color:#666;">Le multi-compte est interdit. Retrait minimum 2000 FCFA. Tout comportement frauduleux entraîne un bannissement définitif.</p>
+            </section>
+        </div>
+    </main>
+
+    <div id="modalRetrait" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="window.fermerModalRetrait()">&times;</span>
+            <h3>Demander un retrait</h3>
+            <div class="input-group-vertical">
+                <label>Montant (Min: 2000 F)</label>
+                <input type="number" id="retraitMontant" placeholder="Ex: 5000" class="auth-input">
+                <label>Confirmer Numéro</label>
+                <input type="tel" id="retraitTel" class="auth-input">
+            </div>
+            <button onclick="window.soumettreRetrait()" class="btn-main">Confirmer</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
