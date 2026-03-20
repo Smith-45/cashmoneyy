@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN | CA$HMONEY</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background:#f4f4f4; padding: 20px;">
+    <h2>🛠 Administration Gédéon</h2>
+
+    <div class="stats-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:15px; margin-bottom:20px;">
+        <div class="stat-card" style="background:white; padding:15px; border-radius:10px; border-left:5px solid #007bff;">
+            <span>Utilisateurs</span><h2 id="statTotalUsers">124</h2>
+        </div>
+        <div class="stat-card" style="background:white; padding:15px; border-radius:10px; border-left:5px solid #28a745;">
+            <span>Total Encaissé</span><h2 id="statTotalDeposits">450 000 FCFA</h2>
+        </div>
+        <div class="stat-card" style="background:white; padding:15px; border-radius:10px; border-left:5px solid #ffc107;">
+            <span>Retraits Attente</span><h2 id="statPendingWithdrawals">3</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Demandes de Recharges à Valider</h3>
+        <table style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background:#eee;">
+                    <th>Date</th>
+                    <th>Utilisateur</th>
+                    <th>Niveau</th>
+                    <th>Montant à Créditer</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="adminRequestList">
+                <tr>
+                    <td>20/03 14:30</td>
+                    <td>Jean K.</td>
+                    <td>Niv 2</td>
+                    <td><input type="number" id="montant_1" value="5000" class="auth-input" style="width:80px; margin:0;"></td>
+                    <td>
+                        <button onclick="alert('Validé par Gédéon !')" class="btn-action" style="background:#28a745; color:white;">✅</button>
+                        <button onclick="prompt('Raison du rejet :')" class="btn-action" style="background:#dc3545; color:white;">❌</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="admin.js"></script>
+</body>
+</html>
