@@ -1,0 +1,17 @@
+:root { --primary: #007bff; --dark: #121212; }
+body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #f8f9fa; }
+.header { background: #fff; padding: 15px; display: flex; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.1); sticky: top; }
+.logo-stylise { font-weight: 900; font-size: 1.3rem; }
+.bleu { color: var(--primary); }
+.container { padding: 20px; max-width: 450px; margin: auto; }
+.card { background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.balance-card { background: linear-gradient(135deg, #007bff, #0056b3); color: #fff; padding: 30px; border-radius: 20px; text-align: center; position: relative; }
+.level-badge { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; }
+.btn-main { width: 100%; padding: 14px; border: none; border-radius: 10px; background: var(--primary); color: #fff; font-weight: bold; cursor: pointer; }
+.auth-input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; outline: none; transition: 0.3s; }
+.sidebar { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; left: 0; background: var(--dark); overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+.sidebar a { padding: 15px 25px; text-decoration: none; color: #bbb; display: block; }
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 3000; }
+.modal-content { background: #fff; padding: 25px; border-radius: 20px; width: 85%; max-width: 380px; }
+.confetti { position: fixed; width: 10px; height: 10px; top: -10%; animation: fall 4s linear forwards; z-index: 10000; }
+@keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
